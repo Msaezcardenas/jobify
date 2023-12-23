@@ -1,6 +1,6 @@
 import { Outlet, redirect, useNavigate, useNavigation } from 'react-router-dom';
 import Wrapper from '../assets/wrappers/Dashboard';
-import { BigSidebar, Navbar, SmallSidebar, Loading } from '../components';
+import { BigSidebar, Navbar, SmallSidebar } from '../components';
 import { createContext, useContext, useEffect, useState } from 'react';
 import customFetch from '../utils/customFetch';
 import { toast } from 'react-toastify';
@@ -86,7 +86,7 @@ const DashboardLayout = ({ queryClient }) => {
           <div>
             <Navbar />
             <div className='dashboard-page'>
-              {isPageLoading ? <Loading /> : <Outlet context={{ user }} />}
+              <Outlet context={{ user }} />
             </div>
           </div>
         </main>

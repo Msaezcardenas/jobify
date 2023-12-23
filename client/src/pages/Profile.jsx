@@ -1,4 +1,4 @@
-import { FormRow, SubmitBtn } from '../components';
+// import { FormRow, SubmitBtn } from '../components';
 import Wrapper from '../assets/wrappers/DashboardFormPage';
 import { useOutletContext, redirect } from 'react-router-dom';
 import { Form } from 'react-router-dom';
@@ -47,7 +47,7 @@ const Profile = () => {
               accept='image/*'
             />
           </div>
-          <FormRow type='text' name='name' defaultValue={name} />
+          {/* <FormRow type='text' name='name' defaultValue={name} />
           <FormRow
             type='text'
             name='lastName'
@@ -56,7 +56,7 @@ const Profile = () => {
           />
           <FormRow type='email' name='email' defaultValue={email} />
           <FormRow type='text' name='location' defaultValue={location} />
-          <SubmitBtn formBtn />
+          <SubmitBtn formBtn /> */}
         </div>
       </Form>
     </Wrapper>

@@ -7,7 +7,7 @@ import {
   DashboardLayout,
   Error,
   AddJob,
-  Stats,
+  // Stats,
   AllJobs,
   Profile,
   Admin,
@@ -55,10 +55,10 @@ const router = createBrowserRouter([
             index: true,
             element: <AddJob />,
           },
-          {
-            path: 'stats',
-            element: <Stats />,
-          },
+          // {
+          //   path: 'stats',
+          //   element: <Stats />,
+          // },
           {
             path: 'all-jobs',
             element: <AllJobs />,
