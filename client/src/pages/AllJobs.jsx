@@ -1,5 +1,5 @@
 import { toast } from 'react-toastify';
-// import { JobsContainer, SearchContainer } from '../components';
+import { JobsContainer, SearchContainer } from '../components';
 import customFetch from '../utils/customFetch';
 import { useLoaderData } from 'react-router-dom';
 import { useContext, createContext } from 'react';
@@ -25,16 +25,16 @@ import { useQuery } from '@tanstack/react-query';
 //   };
 // };
 
-// export const loader =
-//   (queryClient) =>
-//   async ({ request }) => {
-//     const params = Object.fromEntries([
-//       ...new URL(request.url).searchParams.entries(),
-//     ]);
+export const loader =
+  (queryClient) =>
+  async ({ request }) => {
+    const params = Object.fromEntries([
+      ...new URL(request.url).searchParams.entries(),
+    ]);
 
-//     await queryClient.ensureQueryData(allJobsQuery(params));
-//     return { searchValues: { ...params } };
-//   };
+    await queryClient.ensureQueryData(allJobsQuery(params));
+    return { searchValues: { ...params } };
+  };
 
 const AllJobsContext = createContext();
 const AllJobs = () => {

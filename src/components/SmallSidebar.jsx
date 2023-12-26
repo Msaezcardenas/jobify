@@ -1,6 +1,6 @@
 import React from 'react';
 import Wrapper from '../assets/wrappers/SmallSidebar';
-import { useDashboardContext } from '../pages/DashBoardLayout';
+import { useDashboardContext } from '../pages/DashboardLayout.jsx';
 import { FaTimes } from 'react-icons/fa';
 import Logo from './Logo';
 import NavLinks from './NavLinks';
