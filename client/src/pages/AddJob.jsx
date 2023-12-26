@@ -18,6 +18,7 @@ export const action =
       return redirect('all-jobs');
     } catch (error) {
       toast.error(error?.response?.data?.msg);
+      console.log('hello');
       return error;
     }
   };
