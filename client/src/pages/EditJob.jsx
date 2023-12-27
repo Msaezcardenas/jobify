@@ -1,56 +1,39 @@
-import { FormRow } from '../components';
+import { FormRow, FormRowSelect } from '../components';
 import Wrapper from '../assets/wrappers/DashboardFormPage';
-import { useLoaderData, useParams } from 'react-router-dom';
+import { useLoaderData } from 'react-router-dom';
 import { JOB_STATUS, JOB_TYPE } from '../../../utils/constants';
-import { Form, redirect } from 'react-router-dom';
+import { Form, useNavigation, redirect } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import customFetch from '../utils/customFetch';
-import { useQuery } from '@tanstack/react-query';
 
-const singleJobQuery = (id) => {
-  return {
-    queryKey: ['job', id],
-    queryFn: async () => {
-      const { data } = await customFetch.get(`/jobs/${id}`);
-      return data;
-    },
-  };
+export const loader = async ({ params }) => {
+  try {
+    const { data } = await customFetch.get(`/jobs/${params.id}`);
+    return data;
+  } catch (error) {
+    toast.error(error?.response?.data);
+    return redirect('/dashboard/all-jobs');
+  }
 };
 
-export const loader =
-  (queryClient) =>
-  async ({ params }) => {
-    try {
-      await queryClient.ensureQueryData(singleJobQuery(params.id));
-      return params.id;
-    } catch (error) {
-      toast.error(error?.response?.data?.msg);
-      return redirect('/dashboard/all-jobs');
-    }
-  };
-export const action =
-  (queryClient) =>
-  async ({ request, params }) => {
-    const formData = await request.formData();
-    const data = Object.fromEntries(formData);
-    try {
-      await customFetch.patch(`/jobs/${params.id}`, data);
-      queryClient.invalidateQueries(['jobs']);
+export const action = async ({ request, params }) => {
+  const formData = await request.formData();
+  const data = Object.fromEntries(formData);
 
-      toast.success('Job edited successfully');
-      return redirect('/dashboard/all-jobs');
-    } catch (error) {
-      toast.error(error?.response?.data?.msg);
-      return error;
-    }
-  };
+  try {
+    await customFetch.patch(`/jobs/${params.id}`, data);
+    toast.success('Job edited successfully');
+    return redirect('/dashboard/all-jobs');
+  } catch (error) {
+    toast.error(error?.response?.data);
+    return error;
+  }
+};
 
 const EditJob = () => {
-  const id = useLoaderData();
-
-  const {
-    data: { job },
-  } = useQuery(singleJobQuery(id));
+  const { job } = useLoaderData();
+  const navigation = useNavigation();
+  const isSubmitting = navigation.state === 'submitting';
 
   return (
     <Wrapper>
@@ -61,11 +44,12 @@ const EditJob = () => {
           <FormRow type='text' name='company' defaultValue={job.company} />
           <FormRow
             type='text'
-            name='jobLocation'
             labelText='job location'
+            name='jobLocation'
             defaultValue={job.jobLocation}
           />
-          {/* <FormRowSelect
+
+          <FormRowSelect
             name='jobStatus'
             labelText='job status'
             defaultValue={job.jobStatus}
@@ -77,10 +61,17 @@ const EditJob = () => {
             defaultValue={job.jobType}
             list={Object.values(JOB_TYPE)}
           />
-          <SubmitBtn formBtn /> */}
+          <button
+            type='submit'
+            className='btn btn-block form-btn '
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? 'submitting...' : 'submit'}
+          </button>
         </div>
       </Form>
     </Wrapper>
   );
 };
+
 export default EditJob;
