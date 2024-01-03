@@ -10,7 +10,6 @@ const NavLinks = ({ isBigSidebar }) => {
     <div className='nav-links'>
       {links.map((link) => {
         const { text, path, icon } = link;
-        console.log(text);
         return (
           <NavLink
             to={path}

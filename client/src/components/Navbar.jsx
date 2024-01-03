@@ -9,8 +9,6 @@ import ThemeToggle from './ThemeToggle';
 const Navbar = () => {
   const { toggleSidebar, user } = useDashboardContext();
 
-  console.log(toggleSidebar, user);
-
   return (
     <Wrapper>
       <div className='nav-center'>
