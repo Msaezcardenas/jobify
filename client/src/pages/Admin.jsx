@@ -19,7 +19,7 @@ const Admin = () => {
   const { users, jobs } = useLoaderData();
   return (
     <Wrapper>
-      <StatItem
+      {/* <StatItem
         title='current users'
         count={users}
         color='#e9b949'
@@ -32,7 +32,7 @@ const Admin = () => {
         color='#647acb'
         bcg='#e0e8f9'
         icon={<FaCalendarCheck />}
-      />
+      /> */}
     </Wrapper>
   );
 };
